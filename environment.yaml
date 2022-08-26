@@ -1,0 +1,7 @@
+name: WGV_Calculation
+dependencies:
+  - python = 3.7.6
+  - numpy = 1.20.3
+  - scipy = 1.7.3
+  - PIL = 7.0.0
+  - tkinter = 8.6.8
