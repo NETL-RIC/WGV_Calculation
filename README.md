@@ -2,12 +2,11 @@
 This tool provides an interface to perform the storage assessment methodology discussed in Lackey et al. (2022) to determine H2-CH4 storage potential.
 
 
+## WGV_Calculation
 <ul>
-  <li>Coffee</li>
-  <li>Tea</li>
-  <li>Milk</li>
+  <li>Foad Haeri (foad.haeri@netl.doe.gov)</li>
+  <li>Greg Lackey (gregory.lackey@netl.doe.gov)</li>
 </ul>
 
 Point of Contact:
-Foad Haeri (foad.haeri@netl.doe.gov)
-Greg Lackey (gregory.lackey@netl.doe.gov)
+
