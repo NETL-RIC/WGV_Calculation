@@ -471,7 +471,8 @@ def wge_calc_salt_max(T_res, F_thick, F_area, h_n, h_c, h_o, g_min, cg_frac, uni
     m3_to_mmcf = 0.00003531
     ft_to_m = 0.3048 
     psift_to_mpam = 0.02262
-    acre_to_m2 = 4047 
+    acre_to_m2 = 4047
+    ft2_to_acre = 43560
     ha_to_m2 = 10000
     lhv_H2 = 3.332e-8  # TWh/kg
 
@@ -506,18 +507,27 @@ def wge_calc_salt_max(T_res, F_thick, F_area, h_n, h_c, h_o, g_min, cg_frac, uni
     rho_h2_n = 0.089  # kg/m3 Density of H2 at normal conditions
 
     # First check to see if the formation is thick enough
-    if F_thick < 65:
+    if unit=='SI' and F_thick <= 65:
         tkinter.messagebox.showinfo(title='Warning',
-                                    message='Salt formation needs to be thicker than 65 m to contain a storage cavern')
-#         sys.exit("Salt formation needs to be thicker than 65 m to contain a storage cavern")
+                                    message='Formation thickness must be greater than 65 m to contain a storage cavern')
+
+    if unit=='Imperial' and F_thick <= 213:
+        tkinter.messagebox.showinfo(title='Warning',
+                                    message='Formation thickness must be greater than 213 ft to contain a storage cavern')        
+        
 
     H_cav = F_thick - 65
-    D_cav = H_cav * 0.75
+    D_cav = H_cav * (2/3)
+    
+    
+    if unit=='SI' and F_area < 16 * D_cav**2:
+            tkinter.messagebox.showinfo(title='Warning',
+                            message="Based on the formation thickness, area must be greater than {0:.2f} ha to contain multiple storage caverns".format(16 * D_cav**2/ha_to_m2))
 
-    if F_area < 16 * D_cav**2:
-        tkinter.messagebox.showinfo(title='Warning',
-                            message="Salt formation needs to be wider than {} ha to contain multiple storage caverns".format(16 * D_cav**2*0.0001))
-#         sys.exit("Salt formation needs to be wider than {} m2 to contain multiple storage caverns".format(16 * D_cav**2))
+    if unit=='Imperial' and F_area < 16 * D_cav**2:
+            tkinter.messagebox.showinfo(title='Warning',
+                            message="Based on the formation thickness, area must be greater than {0:.2f} acre to contain multiple storage caverns".format(16 * D_cav**2/acre_to_m2))
+        
 
     # Volume of cavern
     V_cav = (np.pi / 12) * (D_cav ** 2)*(3 * H_cav - D_cav)  # m^3
@@ -1188,7 +1198,7 @@ def show(value):
 
                 fa_unit = ttk.Label(frame,text="acre")
                 fa_unit.grid(row=6, column=2, sticky=tk.W, pady=2)
-                fa_entry.insert(0,24.7)
+                fa_entry.insert(0,445)
 
                 dt_unit = ttk.Label(frame,text="ft")
                 dt_unit.grid(row=7, column=2, sticky=tk.W, pady=2)
