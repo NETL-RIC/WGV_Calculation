@@ -422,7 +422,11 @@ def wge_calc_salt_spec(T_res, H_cav, D_cav, h_n, h_o, g_min, cg_frac, units):
     rho_h2_n = 0.089  # kg/m3 Density of H2 at normal conditions
     
     # calculate depth to center of cavern
-    h_c = h_n + H_cav/2
+    if unit == 'SI':
+        h_c = h_n + 15 + H_cav / 2
+    if unit == 'Imperial':
+        h_c = h_n + 49.2 + H_cav / 2
+
 
     # Volume of cavern
     V_cav = (np.pi/ 12) * (D_cav ** 2)*(3 * H_cav - D_cav)  # m^3
@@ -524,9 +528,12 @@ def wge_calc_salt_max(T_res, F_thick, F_area, h_n, h_o, g_min, cg_frac, units):
 
     H_cav = F_thick - 65
     D_cav = H_cav * (2/3)
-    
+
     # calculate depth to center of cavern
-    h_c = h_n + H_cav/2
+    if unit == 'SI':
+        h_c = h_n + 15 + H_cav / 2
+    if unit == 'Imperial':
+        h_c = h_n + 49.2 + H_cav / 2
     
     
     if unit=='SI' and F_area < 16 * D_cav**2:
@@ -1065,8 +1072,8 @@ def show(value):
                 
                 dz_unit = ttk.Label(frame,text="m")
                 dz_unit.grid(row=4, column=4, sticky=tk.W, pady=2)
-                dz_entry.insert(0,1200)
-                
+                dz_entry.insert(0,750)
+
                 gm_unit = ttk.Label(frame,text="MPa/m")
                 gm_unit.grid(row=5, column=4, sticky=tk.W, pady=2)
                 gm_entry.insert(0,0.00835)
@@ -1177,7 +1184,7 @@ def show(value):
                 
                 dz_unit = ttk.Label(frame,text="m")
                 dz_unit.grid(row=4, column=4, sticky=tk.W, pady=2)
-                dz_entry.insert(0,1200)
+                dz_entry.insert(0,750)
                 
                 gm_unit = ttk.Label(frame,text="MPa/m")
                 gm_unit.grid(row=5, column=4, sticky=tk.W, pady=2)
